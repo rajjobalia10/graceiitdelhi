@@ -82,7 +82,7 @@ export function SiteHeader() {
           <a href="/" className="no-line">
             <Image
               src="/assets/dice/icons/dice-lockup.svg"
-              alt="DICE"
+              alt="circkle"
               width={90}
               height={32}
               priority
@@ -121,7 +121,7 @@ export function SiteHeader() {
           <a href="/" className="no-line">
             <Image
               src="/assets/dice/icons/dice-lockup.svg"
-              alt="DICE"
+              alt="circkle"
               width={106}
               height={38}
               priority

@@ -62,7 +62,7 @@ export function SiteFooter() {
             <a href="/" className="no-line inline-block w-[60px] lg:w-[90px]">
               <Image
                 src="/assets/dice/images/dice-fan.gif"
-                alt="DICE"
+                alt="circkle"
                 width={90}
                 height={110}
                 unoptimized
@@ -114,7 +114,7 @@ export function SiteFooter() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  title={`Follow DICE on ${link.label}`}
+                  title={`Follow circkle on ${link.label}`}
                   className="inline-flex h-8 w-8 items-center justify-center no-line"
                 >
                   <SocialIcon icon={link.icon} />

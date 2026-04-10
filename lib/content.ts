@@ -63,7 +63,7 @@ export type SocialLink = {
 };
 
 export const siteMeta = {
-  title: "DICE | Tickets for your kind of shows",
+  title: "circkle | Tickets for your kind of shows",
   description:
     "We’ll get you out more. We bring the best live events to people around the world. See what concerts, tours, and festivals are happening in your area."
 };
@@ -71,7 +71,7 @@ export const siteMeta = {
 export const hero: HeroContent = {
   title: "Welcome to the alternative",
   body:
-    "Incredible live shows. Upfront pricing. Relevant recommendations. DICE makes going out easy.",
+    "Incredible live shows. Upfront pricing. Relevant recommendations. circkle makes going out easy.",
   ctaLabel: "Get the app",
   ctaHref: toDiceUrl("/download_the_app"),
   videoSrc: "/assets/dice/videos/hero.mp4",
@@ -201,7 +201,7 @@ export const featureBlocks: FeatureBlock[] = [
     ctaHref: toDiceUrl("/partners"),
     mediaType: "image",
     mediaSrc: "/assets/dice/images/partners.png",
-    mediaAlt: "Collage of DICE venue and promoter partners",
+    mediaAlt: "Collage of circkle venue and promoter partners",
     align: "right"
   },
   {
@@ -230,7 +230,7 @@ export const footerGroups: FooterGroup[] = [
   {
     title: "Our company",
     links: [
-      { label: "About DICE", href: toDiceUrl("/about") },
+      { label: "About circkle", href: toDiceUrl("/about") },
       { label: "Careers", href: toDiceUrl("/jobs") },
       {
         label: "Diversity, equity & inclusion",
@@ -257,14 +257,14 @@ export const footerGroups: FooterGroup[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { label: "Instagram", href: "https://instagram.com/dicefm", icon: "instagram" },
-  { label: "TikTok", href: "https://www.tiktok.com/@dice.fm", icon: "tiktok" },
+  { label: "Instagram", href: "https://www.linkedin.com/in/shubham-shashwat-86514520b/", icon: "instagram" },
+  { label: "TikTok", href: "https://www.linkedin.com/in/shubham-shashwat-86514520b/", icon: "tiktok" },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/company/dice-fm/",
+    href: "https://www.linkedin.com/in/shubham-shashwat-86514520b/",
     icon: "linkedin"
   },
-  { label: "YouTube", href: "https://www.youtube.com/@dice_fm", icon: "youtube" }
+  { label: "YouTube", href: "https://www.linkedin.com/in/shubham-shashwat-86514520b/", icon: "youtube" }
 ];
 
 export const downloadLinks: NavLink[] = [
@@ -280,7 +280,7 @@ export const footerLegalLinks: NavLink[] = [
 
 export const footerCopy = {
   languageLabel: "English (United States)",
-  copyright: "© DICE FM Holdings Ltd",
+  copyright: "© circkle FM Holdings Ltd",
   trademark:
-    "DICE and The Fan logo are registered trademarks of DICE FM Holdings Ltd."
+    "circkle and The Fan logo are registered trademarks of circkle FM Holdings Ltd."
 };
