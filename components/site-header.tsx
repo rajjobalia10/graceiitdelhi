@@ -1,169 +1,205 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { CloseIcon, MenuIcon } from "@/components/icons";
-import { navItems } from "@/lib/content";
-import { clearSession, getSession, SESSION_EVENT } from "@/lib/storage";
+import { ChevronIcon, CloseIcon, MenuIcon, SearchIcon } from "@/components/icons";
+import { headerLinks, hero, workWithUs } from "@/lib/content";
+
+function WorkWithUsMenu({
+  mobile = false
+}: Readonly<{
+  mobile?: boolean;
+}>) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      className={`dice-dropdown ${mobile ? "dice-dropdown-mobile" : ""}`}
+      onMouseEnter={() => !mobile && setOpen(true)}
+      onMouseLeave={() => !mobile && setOpen(false)}
+    >
+      <button
+        type="button"
+        className={`dice-nav-link ${mobile ? "dice-mobile-nav-link" : ""}`}
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span>{workWithUs.label}</span>
+        <ChevronIcon
+          className={`h-6 w-6 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open ? (
+        <div className={`dice-dropdown-panel ${mobile ? "dice-dropdown-panel-mobile" : ""}`}>
+          {workWithUs.items.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              className="dice-dropdown-item no-line"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 export function SiteHeader() {
-  const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [sessionName, setSessionName] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > 12);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 4);
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    const syncSession = () => {
-      setSessionName(getSession()?.name ?? null);
-    };
-
-    syncSession();
-    window.addEventListener(SESSION_EVENT, syncSession);
-    window.addEventListener("storage", syncSession);
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
 
     return () => {
-      window.removeEventListener(SESSION_EVENT, syncSession);
-      window.removeEventListener("storage", syncSession);
+      document.body.style.overflow = "";
     };
-  }, []);
-
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
+  }, [mobileMenuOpen]);
 
   return (
-    <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-white/10 transition-all duration-200 ${
-          isScrolled ? "navbar-glass-scrolled" : "navbar-glass"
-        }`}
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div
+        className={`border-b border-black/5 transition-[background,box-shadow] duration-200 ${
+          scrolled ? "bg-white/85 shadow-[0_8px_32px_rgba(0,0,0,0.04)]" : "bg-white/80"
+        } backdrop-blur-[6px]`}
       >
-        <div className="mx-auto flex h-[60px] max-w-content items-center justify-between px-5">
-          <Link
-            href="/"
-            className="text-2xl font-extrabold tracking-tight text-white"
+        <div className="mx-auto flex max-w-header items-center gap-4 px-4 py-4 md:hidden">
+          <a href="/" className="no-line">
+            <Image
+              src="/assets/dice/icons/dice-lockup.svg"
+              alt="DICE"
+              width={90}
+              height={32}
+              priority
+            />
+          </a>
+          <div className="ml-auto flex items-center gap-2">
+            <a
+              href={hero.ctaHref.replace("/download_the_app", "/browse")}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Search"
+              className="dice-icon-button no-line"
+            >
+              <SearchIcon className="h-6 w-6" />
+            </a>
+            <a
+              href={hero.ctaHref}
+              target="_blank"
+              rel="noreferrer"
+              className="dice-button dice-button-black no-line"
+            >
+              {hero.ctaLabel}
+            </a>
+            <button
+              type="button"
+              aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+              className="dice-icon-button"
+              onClick={() => setMobileMenuOpen((value) => !value)}
+            >
+              {mobileMenuOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+
+        <div className="mx-auto hidden max-w-header items-center px-4 py-4 md:flex lg:px-12 lg:py-6">
+          <a href="/" className="no-line">
+            <Image
+              src="/assets/dice/icons/dice-lockup.svg"
+              alt="DICE"
+              width={106}
+              height={38}
+              priority
+            />
+          </a>
+
+          <a
+            href={hero.ctaHref.replace("/download_the_app", "/browse")}
+            target="_blank"
+            rel="noreferrer"
+            className="dice-search-pill no-line ml-6 hidden xl:inline-flex"
           >
-            Circle
-          </Link>
+            <SearchIcon className="h-6 w-6" />
+            <span>{hero.searchLabel}</span>
+          </a>
 
-          <nav className="hidden items-center gap-7 md:flex">
-            {navItems.map((item) => {
-              const isActive =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  data-active={isActive}
-                  className="link-underline text-sm font-medium text-white/80 transition-colors hover:text-white"
+          <nav className="ml-auto">
+            <ul className="flex items-center gap-5 lg:gap-6 xl:gap-10">
+              {headerLinks.slice(0, 2).map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="dice-nav-link no-line"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <WorkWithUsMenu />
+              </li>
+              <li>
+                <a
+                  href={headerLinks[2].href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="dice-nav-link no-line"
                 >
-                  {item.label}
-                </Link>
-              );
-            })}
+                  {headerLinks[2].label}
+                </a>
+              </li>
+            </ul>
           </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
-            {sessionName ? (
-              <>
-                <Link
-                  href="/my-groups"
-                  className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
-                >
-                  {sessionName.split(" ")[0]}
-                </Link>
-                <button
-                  type="button"
-                  onClick={clearSession}
-                  className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-white/75 transition-colors hover:border-white/20 hover:text-white"
-                >
-                  Log out
-                </button>
-              </>
-            ) : (
-              <Link
-                href="/sign-in"
-                className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-purple shadow-btn transition-all duration-200 hover:bg-white/90"
-              >
-                Sign In
-              </Link>
-            )}
-          </div>
-
-          <button
-            type="button"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setIsMenuOpen((open) => !open)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white md:hidden"
-          >
-            {isMenuOpen ? <CloseIcon size={18} /> : <MenuIcon size={18} />}
-          </button>
+          <a href={hero.ctaHref} target="_blank" rel="noreferrer" className="dice-button dice-button-black no-line ml-4">
+            {hero.ctaLabel}
+          </a>
         </div>
-      </header>
+      </div>
 
-      {isMenuOpen ? (
-        <div className="fixed inset-0 z-40 bg-black/60 md:hidden">
-          <div className="ml-auto flex h-full w-[86vw] max-w-sm flex-col border-l border-white/10 bg-[#14052b] px-6 pb-8 pt-24 shadow-2xl">
-            <div className="space-y-5">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="block text-base font-semibold text-white"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="mt-8 border-t border-white/10 pt-6">
-              {sessionName ? (
-                <div className="space-y-3">
-                  <Link
-                    href="/my-groups"
-                    className="block rounded-full bg-white px-5 py-3 text-center text-sm font-semibold text-brand-purple"
-                  >
-                    View My Groups
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      clearSession();
-                      setIsMenuOpen(false);
-                    }}
-                    className="w-full rounded-full border border-white/10 px-5 py-3 text-sm font-medium text-white/80"
-                  >
-                    Log out
-                  </button>
-                </div>
-              ) : (
-                <Link
-                  href="/sign-in"
-                  className="block rounded-full bg-white px-5 py-3 text-center text-sm font-semibold text-brand-purple"
-                >
-                  Sign In
-                </Link>
-              )}
-            </div>
-          </div>
+      {mobileMenuOpen ? (
+        <div className="border-b border-black/10 bg-white/95 px-4 pb-6 pt-2 backdrop-blur-[8px] md:hidden">
+          <nav className="flex flex-col gap-1">
+            {headerLinks.slice(0, 2).map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="dice-mobile-nav-link no-line"
+              >
+                {link.label}
+              </a>
+            ))}
+            <WorkWithUsMenu mobile />
+            <a
+              href={headerLinks[2].href}
+              target="_blank"
+              rel="noreferrer"
+              className="dice-mobile-nav-link no-line"
+            >
+              {headerLinks[2].label}
+            </a>
+          </nav>
         </div>
       ) : null}
-    </>
+    </header>
   );
 }

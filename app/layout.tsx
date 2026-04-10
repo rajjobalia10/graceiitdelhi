@@ -7,22 +7,26 @@ import { siteMeta } from "@/lib/content";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://circle.local"),
-  title: {
-    default: siteMeta.title,
-    template: `%s | ${siteMeta.title}`
-  },
+  metadataBase: new URL("https://graceiitdelhi.vercel.app"),
+  title: siteMeta.title,
   description: siteMeta.description,
   openGraph: {
     title: siteMeta.title,
     description: siteMeta.description,
-    images: ["/assets/circle/og-circle.svg"]
+    images: ["/assets/dice/meta/dice-fan-social.png"]
   },
   twitter: {
     card: "summary_large_image",
     title: siteMeta.title,
     description: siteMeta.description,
-    images: ["/assets/circle/og-circle.svg"]
+    images: ["/assets/dice/meta/dice-fan-social.png"]
+  },
+  icons: {
+    icon: [
+      { url: "/assets/dice/meta/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/assets/dice/meta/favicon-32x32.png", sizes: "32x32", type: "image/png" }
+    ],
+    apple: [{ url: "/assets/dice/meta/android-icon-192x192.png" }]
   }
 };
 
@@ -33,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="page-shell">
+      <body>
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
