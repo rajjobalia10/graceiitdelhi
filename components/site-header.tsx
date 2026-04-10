@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { ChevronIcon, CloseIcon, MenuIcon, SearchIcon } from "@/components/icons";
@@ -79,14 +78,8 @@ export function SiteHeader() {
         } backdrop-blur-[6px]`}
       >
         <div className="mx-auto flex max-w-header items-center gap-4 px-4 py-4 md:hidden">
-          <a href="/" className="no-line">
-            <Image
-              src="/assets/dice/icons/dice-lockup.svg"
-              alt="circkle"
-              width={90}
-              height={32}
-              priority
-            />
+          <a href="/" className="no-line" style={{ fontFamily: '"Foggy", serif', fontSize: '28px', lineHeight: '32px', letterSpacing: '-0.02em' }}>
+            circkle
           </a>
           <div className="ml-auto flex items-center gap-2">
             <a
@@ -118,14 +111,8 @@ export function SiteHeader() {
         </div>
 
         <div className="mx-auto hidden max-w-header items-center px-4 py-4 md:flex lg:px-12 lg:py-6">
-          <a href="/" className="no-line">
-            <Image
-              src="/assets/dice/icons/dice-lockup.svg"
-              alt="circkle"
-              width={106}
-              height={38}
-              priority
-            />
+          <a href="/" className="no-line" style={{ fontFamily: '"Foggy", serif', fontSize: '32px', lineHeight: '38px', letterSpacing: '-0.02em' }}>
+            circkle
           </a>
 
           <a

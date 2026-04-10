@@ -59,14 +59,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-footer">
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-8">
           <div className="mb-2 lg:mb-0 lg:w-[124px]">
-            <a href="/" className="no-line inline-block w-[60px] lg:w-[90px]">
-              <Image
-                src="/assets/dice/images/dice-fan.gif"
-                alt="circkle"
-                width={90}
-                height={110}
-                unoptimized
-              />
+            <a href="/" className="no-line inline-block" style={{ fontFamily: '"Foggy", serif', fontSize: '32px', lineHeight: '38px', letterSpacing: '-0.02em' }}>
+              circkle
             </a>
           </div>
 
